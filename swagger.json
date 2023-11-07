@@ -1,0 +1,123 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "API Documentation in Node.js Using Swagger",
+      "description": "User Restful webservice application",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Staff Login",
+        "description": "API for Staff Login"
+      },
+      {
+        "name": "Get Vendor List",
+        "description": "API for Get Vendor List"
+      }
+    ],
+    "produces": ["application/json"],
+    "paths": {
+      "/staff/login": {
+        "post": {
+          "tags": ["Staff Login"],
+          "summary": "Authenticate staff member",
+          "description": "Authenticate staff member using credentials",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "credentials",
+              "description": "Staff login credentials",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful login",
+              "schema": {
+                "$ref": "#/definitions/LoginResponse"
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "security": [
+            {
+              "Api-Key": []  
+            }
+          ]
+        }
+      },
+      "/vendor/list": {
+        "get": {
+          "tags": ["Get Vendor List"],
+          "summary": "Get list of vendors",
+          "description": "Get a list of vendors from the system",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "schema": {
+                "type": "array"
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "Api-Key": [] 
+            }
+          ]
+        }
+      }
+    },
+    "definitions": {
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securityDefinitions": {
+      "Api-Key": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  }
+  
